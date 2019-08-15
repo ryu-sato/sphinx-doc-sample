@@ -27,7 +27,7 @@ pipenv run build
 
 ## pipenv スクリプト
 
-Pipfile に `pipenv run ＜スクリプト名＞` として
+Pipfile に `pipenv run ＜スクリプト名＞` として以下が登録されています。
 
 |スクリプト名|説明|
 | --- | --- |
