@@ -5,6 +5,8 @@ verify_ssl = true
 
 [dev-packages]
 sphinx-autobuild = "*"
+sphinx-intl = "*"
+watchdog = "*"
 
 [packages]
 sphinx = "*"
@@ -15,4 +17,9 @@ python_version = "3.7"
 
 [scripts]
 build = "sphinx-build -M html source build"
+build_ja = "pipenv run build -D language=ja"
 auto_build = "sphinx-autobuild -b html source build/html"
+auto_build_ja = "pipenv run auto_build -D language=ja"
+i18n_pot = "sphinx-build -M gettext source build"
+i18n_po = "sphinx-intl update -d source/locales -p build/gettext -l ja"
+auto_i18n_po = "watchmedo shell-command --pattern='*.rst' --recursive --command='pipenv run i18n_pot && pipenv run i18n_po'"
