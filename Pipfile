@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+sphinx-autobuild = "*"
 
 [packages]
 sphinx = "*"
@@ -11,3 +12,7 @@ sphinx-rtd-theme = "*"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+build = "sphinx-build -M html source build"
+auto_build = "sphinx-autobuild -b html source build/html"
