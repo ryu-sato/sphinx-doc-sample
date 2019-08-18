@@ -18,7 +18,7 @@ jobs:
         sudo apt-get install -y gettext
         python -m pip install --upgrade pip
         pip install pipenv
-        pipenv sync --dev
+        pipenv sync
     - name: Build
       run: |
         pipenv run build -W
