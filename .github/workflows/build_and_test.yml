@@ -25,7 +25,8 @@ jobs:
         pipenv run build_ja -W
     - name: Test
       run: |
-        msgfmt -o /dev/null source/locales/ja/LC_MESSAGES/*.po -v --statistics | tee msgfmt-error.log
+        STATISTICS_CMD="msgfmt -o /dev/null source/locales/ja/LC_MESSAGES/*.po -v --statistics"
+        $(STATISTICS_CMD)
         # Fail if statistics of translation file include messages after 'translated messages'.
         #   invalid ex. source/locales/ja/LC_MESSAGES/index.po: 4 translated messages, 1 fuzzy translation, 1 untranslated message.
-        grep -v -q ' translated messages, *' msgfmt-error.log
+        $(STATISTICS_CMD | grep -v -q ' translated messages, *' msgfmt-error.log)
