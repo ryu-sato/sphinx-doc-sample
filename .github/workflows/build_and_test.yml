@@ -25,6 +25,7 @@ jobs:
         python get-poetry.py --version $POETRY_VER
         # install dependent PyPI packages
         poetry install
+        echo "::set-env name=PATH::$HOME/.poetry/bin:$PATH"
     - name: Build
       run: |
         poetry run sphinx-build -M html source build -W
