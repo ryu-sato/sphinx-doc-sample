@@ -26,7 +26,6 @@ jobs:
         echo "::set-env name=PATH::$HOME/.poetry/bin:$PATH"
     - name: Install dependencies
       run: |
-        ls -al $HOME/.poetry/bin
         poetry install
     - name: Build
       run: |
