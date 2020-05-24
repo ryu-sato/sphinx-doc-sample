@@ -7,6 +7,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      POETRY_VER: 1.0.5
+
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.7
@@ -15,14 +18,17 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: |
+        # install curl
         sudo apt-get install -y gettext
-        python -m pip install --upgrade pip
-        pip install pipenv
-        pipenv sync
+        # install poetry
+        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py
+        python get-poetry.py --version $POETRY_VER
+        # install dependent PyPI packages
+        poetry install
     - name: Build
       run: |
-        pipenv run build -W
-        pipenv run build_ja -W
+        poetry run sphinx-build -M html source build -W
+        poetry run sphinx-build -M html source build -D language=ja -W
     - name: Test
       run: |
         STATISTICS_CMD="msgfmt -o /dev/null source/locales/ja/LC_MESSAGES/*.po -v --statistics"
