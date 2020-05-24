@@ -8,48 +8,26 @@ Sphinx ドキュメントのサンプルです。
     ```bash
     git clone https://github.com/ryu-sato/sphinx-doc-sample.git
     ```
-2. pipenv コマンドをインストールする
-    ```bash
-    pip install pipenv
-    ```
+2. poetry コマンドをインストールする ([参考](https://python-poetry.org/docs/#installation))
 3. PyPI パッケージをインストールする
     ```bash
-    pipenv sync --dev
+    poetry install
     ```
 
 # コンテンツビルド
 
-```bash
-pipenv run build
-```
-
-## 自動コンテンツビルド
-
-* 英語
-    ```bash
-    pipenv run auto_build
-    ```
-* 日本語
-    ```bash
-    # ターミナル1
-    pipenv run auto_build_ja
-    # ターミナル2
-    pipenv run auto_i18_po
-    ```
-
+[[#ビルドコマンド]] を参考にする
 
 # 参考情報
 
-## pipenv スクリプト
+## ビルドコマンド
 
-Pipfile に `pipenv run ＜スクリプト名＞` として以下が登録されています。
-
-|スクリプト名|説明|
+|コマンド|説明|
 | --- | --- |
-|build|HTMLファイルをビルドする(en)|
-|build_ja|HTMLファイルをビルドする(ja)|
-|auto_build|Webサーバを起動し、ソースファイルに変更があれば自動でHTMLファイルをビルドして反映させる(en)|
-|auto_build_ja|Webサーバを起動し、ソースファイルに変更があれば自動でHTMLファイルをビルドして反映させる(ja)|
-|i18n_pot|i18n用カタログテンプレートを作成する|
-|i18n_po|i18n用メッセージカタログを作成する|
-|auto_i18n_po|ソースファイルに変更があれば自動でメッセージカタログを作成する|
+|poetry run sphinx-build -M html source build|HTMLファイルをビルドする(en)|
+|poetry run sphinx-build -M html source build -D language=ja|HTMLファイルをビルドする(ja)|
+|poetry run sphinx-autobuild -b html source build/html|Webサーバを起動し、ソースファイルに変更があれば自動でHTMLファイルをビルドして反映させる(en)|
+|poetry run sphinx-autobuild -b html source build/html -D language=ja|Webサーバを起動し、ソースファイルに変更があれば自動でHTMLファイルをビルドして反映させる(ja)|
+|poetry run sphinx-build -M gettext source build|i18n用カタログテンプレートを作成する|
+|poetry run sphinx-intl update -d source/locales -p build/gettext -l ja|i18n用メッセージカタログを作成する|
+|poetry run watchmedo shell-command --pattern="*.rst" --recursive --command="poetry run sphinx-build -M gettext source build && poetry run sphinx-intl update -d source/locales -p build/gettext -l ja"|ソースファイルに変更があれば自動でメッセージカタログを作成する|
