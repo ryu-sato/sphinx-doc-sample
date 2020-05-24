@@ -21,7 +21,7 @@ jobs:
         # install curl
         sudo apt-get install -y gettext
         # install poetry
-        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py
+        wget https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py
         python get-poetry.py --version $POETRY_VER
         # install dependent PyPI packages
         poetry install
