@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "sphinx-doc-sample"
+version = "0.1.0"
+description = "Sample of sphinx document"
+authors = ["Ryu Sato <ryu@weseek.co.jp>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+sphinx = "^3.0.3"
+sphinx-rtd-theme = "^0.4.3"
+
+[tool.poetry.dev-dependencies]
+sphinx-autobuild = "^0.7.1"
+sphinx-intl = "^2.0.0"
+watchdog = "^0.10.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
