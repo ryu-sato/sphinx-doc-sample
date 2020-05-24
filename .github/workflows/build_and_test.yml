@@ -26,8 +26,10 @@ jobs:
         # install dependent PyPI packages
         poetry install
         echo "::set-env name=PATH::$HOME/.poetry/bin:$PATH"
+        ls -al $HOME/.poetry/bin
     - name: Build
       run: |
+        echo $PATH
         poetry run sphinx-build -M html source build -W
         poetry run sphinx-build -M html source build -D language=ja -W
     - name: Test
