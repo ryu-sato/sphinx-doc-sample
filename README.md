@@ -31,3 +31,17 @@ Sphinx ドキュメントのサンプルです。
 |poetry run sphinx-build -M gettext source build|i18n用カタログテンプレートを作成する|
 |poetry run sphinx-intl update -d source/locales -p build/gettext -l ja|i18n用メッセージカタログを作成する|
 |poetry run watchmedo shell-command --pattern="*.rst" --recursive --command="poetry run sphinx-build -M gettext source build && poetry run sphinx-intl update -d source/locales -p build/gettext -l ja"|ソースファイルに変更があれば自動でメッセージカタログを作成する|
+
+# Docker コンテナ
+
+## イメージビルド
+
+1. Gitリポジトリをクローンする
+    ```bash
+    git clone https://github.com/ryu-sato/sphinx-doc-sample.git
+    ```
+1. イメージをビルドする
+    ```bash
+    cd sphinx-doc-sample
+    docker build -t sphinx-doc-sample .
+    ```
