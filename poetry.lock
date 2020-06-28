@@ -389,7 +389,7 @@ description = "Filesystem events monitoring"
 name = "watchdog"
 optional = false
 python-versions = "*"
-version = "0.10.2"
+version = "0.10.3"
 
 [package.dependencies]
 pathtools = ">=0.1.1"
@@ -398,7 +398,7 @@ pathtools = ">=0.1.1"
 watchmedo = ["PyYAML (>=3.10)", "argh (>=0.24.1)"]
 
 [metadata]
-content-hash = "ceac643b58bea998eb60a65bf2372f1a78a40969e6775d2cc36a4540b40e5145"
+content-hash = "0a28cc5832a6700d76e9b512aef96703f90f7818519c63ba37aab44cb0fe151d"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -589,5 +589,5 @@ urllib3 = [
     {file = "urllib3-1.25.9.tar.gz", hash = "sha256:3018294ebefce6572a474f0604c2021e33b3fd8006ecd11d62107a5d2a963527"},
 ]
 watchdog = [
-    {file = "watchdog-0.10.2.tar.gz", hash = "sha256:c560efb643faed5ef28784b2245cf8874f939569717a4a12826a173ac644456b"},
+    {file = "watchdog-0.10.3.tar.gz", hash = "sha256:4214e1379d128b0588021880ccaf40317ee156d4603ac388b9adcf29165e0c04"},
 ]
