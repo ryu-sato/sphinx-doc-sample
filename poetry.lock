@@ -120,14 +120,6 @@ pyparsing = ">=2.0.2"
 six = "*"
 
 [[package]]
-name = "pathtools"
-version = "0.1.2"
-description = "File system general utilities"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "pygments"
 version = "2.6.1"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -356,14 +348,11 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "watchdog"
-version = "0.10.3"
+version = "1.0.1"
 description = "Filesystem events monitoring"
 category = "dev"
 optional = false
-python-versions = "*"
-
-[package.dependencies]
-pathtools = ">=0.1.1"
+python-versions = ">=3.6"
 
 [package.extras]
 watchmedo = ["PyYAML (>=3.10)", "argh (>=0.24.1)"]
@@ -371,7 +360,7 @@ watchmedo = ["PyYAML (>=3.10)", "argh (>=0.24.1)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "3062b2d50c487c2627bea9d2cc7414a370fe3c04e884c6e03375bac5c9713713"
+content-hash = "be281598cf16a974c41eaa0f11e5ab2289aecf6db57da3bdce31f002cb8999ae"
 
 [metadata.files]
 alabaster = [
@@ -457,9 +446,6 @@ packaging = [
     {file = "packaging-20.4-py2.py3-none-any.whl", hash = "sha256:998416ba6962ae7fbd6596850b80e17859a5753ba17c32284f67bfff33784181"},
     {file = "packaging-20.4.tar.gz", hash = "sha256:4357f74f47b9c12db93624a82154e9b120fa8293699949152b22065d556079f8"},
 ]
-pathtools = [
-    {file = "pathtools-0.1.2.tar.gz", hash = "sha256:7c35c5421a39bb82e58018febd90e3b6e5db34c5443aaaf742b3f33d4655f1c0"},
-]
 pygments = [
     {file = "Pygments-2.6.1-py3-none-any.whl", hash = "sha256:ff7a40b4860b727ab48fad6360eb351cc1b33cbf9b15a0f689ca5353e9463324"},
     {file = "Pygments-2.6.1.tar.gz", hash = "sha256:647344a061c249a3b74e230c739f434d7ea4d8b1d5f3721bc0f3558049b38f44"},
@@ -541,5 +527,5 @@ urllib3 = [
     {file = "urllib3-1.25.9.tar.gz", hash = "sha256:3018294ebefce6572a474f0604c2021e33b3fd8006ecd11d62107a5d2a963527"},
 ]
 watchdog = [
-    {file = "watchdog-0.10.3.tar.gz", hash = "sha256:4214e1379d128b0588021880ccaf40317ee156d4603ac388b9adcf29165e0c04"},
+    {file = "watchdog-1.0.1.tar.gz", hash = "sha256:78ea5d78f2cf8e4d6343ab2cbed93bb47b7a85b1c2f90a1dea365226bbab68ac"},
 ]
