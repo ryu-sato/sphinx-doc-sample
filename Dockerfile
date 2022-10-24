@@ -21,7 +21,7 @@ RUN /poetry/bin/poetry run sphinx-build -M html source build -D language=ja \
       && mv build/html/ ${HTML_PATH}/ja
 
 
-FROM nginx:1.15.12-alpine
+FROM nginx:1.23.2-alpine
 
 ENV HTML_PATH /tmp/html
 
