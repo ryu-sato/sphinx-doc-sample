@@ -16,5 +16,5 @@ sphinx-intl = "^2.0.1"
 watchdog = "^0.10.3"
 
 [build-system]
-requires = ["poetry>=0.12"]
+requires = ["poetry>=2.0.1"]
 build-backend = "poetry.masonry.api"
