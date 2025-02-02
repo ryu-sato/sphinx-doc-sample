@@ -4,15 +4,13 @@ Sphinx ドキュメントのサンプルです。
 
 # 開発環境構築方法
 
+1. VSCode をインストールする
+1. Development container を初期化する ([参考](https://code.visualstudio.com/docs/devcontainers/containers))
 1. Gitリポジトリをクローンする
     ```bash
     git clone https://github.com/ryu-sato/sphinx-doc-sample.git
     ```
-2. poetry コマンドをインストールする ([参考](https://python-poetry.org/docs/#installation))
-3. PyPI パッケージをインストールする
-    ```bash
-    poetry install
-    ```
+1. sphinx-doc-sample の container を開く
 
 # コンテンツビルド
 
