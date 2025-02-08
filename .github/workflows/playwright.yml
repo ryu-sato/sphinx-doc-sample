@@ -47,4 +47,4 @@ jobs:
     #     retention-days: 30
     - uses: sidharthv96/playwright-report-action@v1.3
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
