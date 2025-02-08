@@ -20,7 +20,7 @@ test.describe('Visual regression tests', () => {
       await page.waitForLoadState('networkidle');
 
       // スクリーンショットを撮影し、既存のものと比較
-      await expect(page).toHaveScreenshot(`${path.replace('/', '_')}.png`, {
+      await expect(page).toHaveScreenshot({
         // 許容する差分の閾値を設定
         maxDiffPixels: 100,
         // スクリーンショットのスタイル設定
