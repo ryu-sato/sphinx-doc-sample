@@ -1,7 +1,7 @@
-name: Playwright Tests
+name: Visual Regression Test
 on:
   push:
-    branches: [ main, master, support/add-visual-regression-test ]
+    branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
 jobs:
