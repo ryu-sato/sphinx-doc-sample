@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: ${{ github.repository }}/.github/workflows/exec_playwright@master
+    - uses: ryu-sato/sphinx-doc-sample/.github/workflows/exec_playwright@support/add-visual-regression-test
     - name: Cache VRT snapshots
       uses: actions/cache@v4
       id: vrt-cache
