@@ -30,7 +30,7 @@ jobs:
       run: |
         # install curl
         sudo apt-get install -y gettext
-    - run: poetry install
+    - run: poetry install --all-groups
 
     # npm
     - uses: actions/setup-node@v4
