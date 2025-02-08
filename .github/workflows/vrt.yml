@@ -1,7 +1,7 @@
 name: Visual Regression Test
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, support/add-visual-regression-test ]
   pull_request:
     branches: [ main, master ]
 jobs:
