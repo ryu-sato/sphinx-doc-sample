@@ -30,21 +30,18 @@ jobs:
       run: sudo apt-get install -y gettext
     - run: poetry install
 
-    # # npm
-    # - uses: actions/setup-node@v4
-    #   with:
-    #     node-version: lts/*
-    # - run: yarn install
-    # - name: Install dependencies
-    #   run: yarn pretest:install-playwright
-    # - name: Run Playwright tests
-    #   run: yarn test:vrt
-    # - uses: actions/upload-artifact@v4
-    #   if: ${{ !cancelled() }}
-    #   with:
-    #     name: playwright-report
-    #     path: playwright-report/
-    #     retention-days: 30
-    - uses: sidharthv96/playwright-report-action@v2.0-rc.6
+    # npm
+    - uses: actions/setup-node@v4
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        node-version: lts/*
+    - run: yarn install
+    - name: Install dependencies
+      run: yarn pretest:install-playwright
+    - name: Run Playwright tests
+      run: yarn test:vrt
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
