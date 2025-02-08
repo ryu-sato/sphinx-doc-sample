@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { execSync } from 'child_process';
 
-const paths = execSync("cd build/html; find . -name \"*.html\" | sed -r 's/\\/[^/]*$//' | sort --uniq").toString().split("\n").filter(it => it);
+const paths = execSync("cd build/html; find . -name \"*.html\"").toString().split("\n").filter(it => it);
 
 test.describe('Visual regression tests', () => {
   test.beforeEach(async ({ page }) => {
