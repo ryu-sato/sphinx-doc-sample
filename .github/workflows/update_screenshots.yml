@@ -9,7 +9,6 @@ on:
         default: false
 jobs:
   update-vrt-screenshots:
-    timeout-minutes: 60
     uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
     with:
       update-screenshots: true

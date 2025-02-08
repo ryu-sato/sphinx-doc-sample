@@ -8,11 +8,13 @@ on:
 
 jobs:
   exec-playwright:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
       PYTHON_VERSION: "3.10"
       POETRY_VERSION: "2.0.1"
     steps:
+    - uses: actions/checkout@v4
     - name: Install poetry
       run: pipx install poetry==${{ env.POETRY_VERSION }}
     - name: Set up Python ${{ env.PYTHON_VERSION }}
