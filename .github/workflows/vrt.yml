@@ -1,0 +1,25 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [ main, master, support/add-visual-regression-test ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ${{ github.repository }}/.github/workflows/exec_playwright@master
+    - name: Cache VRT snapshots
+      uses: actions/cache@v4
+      id: vrt-cache
+      with:
+        path: playwright-report
+        key: vrt-${{ vars.RECENT_ARTIFACTS_SHA256 }}
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30

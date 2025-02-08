@@ -1,0 +1,47 @@
+name: Execute Playwright
+on:
+  workflow_call:
+    inputs:
+      update-screenshots:
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: "3.10"
+      POETRY_VERSION: "2.0.1"
+    steps:
+    - name: Install poetry
+      run: pipx install poetry==${{ env.POETRY_VERSION }}
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: "poetry"
+    - name: Install tools
+      run: sudo apt-get install -y gettext
+    - run: poetry install
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - run: yarn install
+    - name: Install dependencies
+      run: yarn pretest:install-playwright
+
+    - if: ${{ inputs.update-screenshots }}
+      name: Run Playwright tests
+      run: yarn test:vrt --update-snapshots
+
+    - if: ${{ !inputs.update-screenshots }}
+      name: Run Playwright tests
+      run: yarn test:vrt
+    - if: ${{ !inputs.update-screenshots }}
+      name: Cache VRT snapshots
+      uses: actions/cache@v4
+      id: vrt-cache
+      with:
+        path: playwright-report
+        key: vrt-${{ vars.RECENT_ARTIFACTS_SHA256 }}
