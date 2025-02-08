@@ -9,8 +9,17 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    container:
+      # Match the Playwright version
+      # https://github.com/microsoft/playwright/issues/20010
+      image: mcr.microsoft.com/playwright:v1.50.1-jammy
     steps:
     - uses: actions/checkout@v4
+
+    # PyPI
+    - run: poetry install
+
+    # npm
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
