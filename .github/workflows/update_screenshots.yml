@@ -1,7 +1,7 @@
 name: Update Screenshots
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, support/add-visual-regression-test ]
   workflow_dispatch:
     inputs:
       update-screenshots:
