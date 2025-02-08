@@ -8,9 +8,10 @@
     "npm-run-all": "^4.1.5"
   },
   "scripts": {
-    "test": "npx playwright test",
+    "test": "run-p test:*",
+    "test:vrt": "npx playwright test",
     "pretest": "run-p pretest:*",
-    "pretest:install-playwright": "npx playwright install",
+    "pretest:install-playwright": "npx playwright install --with-deps",
     "run-app:en": "poetry run sphinx-autobuild -b html source build/html",
     "run-app:ja": "poetry run sphinx-autobuild -b html source build/html -D language=ja"
   }
