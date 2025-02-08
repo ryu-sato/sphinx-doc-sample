@@ -1,18 +1,33 @@
 import { test, expect } from '@playwright/test';
+import { execSync } from 'child_process';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+const paths = execSync("cd build/html; find . -name \"*.html\" | sed -r 's/\\/[^/]*$//' | sort --uniq").toString().split("\n").filter(it => it);
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+test.describe('Visual regression tests', () => {
+  test.beforeEach(async ({ page }) => {
+    // ブラウザウィンドウのサイズを固定
+    await page.setViewportSize({ width: 1280, height: 720 });
+  });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  // if (paths || paths.length == 0) throw 'paths are empty';
+  for (const path of paths) {
+    test(`screenshot comparison for ${path}`, async ({ page }) => {
+      // ページへ移動
+      await page.goto(path);
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+      // ページの読み込みが完了するまで待機
+      // 動的コンテンツがある場合は適切なセレクタで待機する
+      await page.waitForLoadState('networkidle');
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+      // スクリーンショットを撮影し、既存のものと比較
+      await expect(page).toHaveScreenshot(`${path.replace('/', '_')}.png`, {
+        // 許容する差分の閾値を設定
+        maxDiffPixels: 100,
+        // スクリーンショットのスタイル設定
+        animations: 'disabled',
+        // 全ページを撮影
+        fullPage: true,
+      });
+    });
+  }
 });
