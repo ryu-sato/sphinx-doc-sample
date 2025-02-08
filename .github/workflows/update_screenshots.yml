@@ -8,15 +8,8 @@ on:
         type: boolean
         default: false
 jobs:
-  test:
+  update-vrt-screenshots:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: ryu-sato/sphinx-doc-sample/.github/workflows/exec_playwright@support/add-visual-regression-test
-    - name: Cache VRT snapshots
-      uses: actions/cache@v4
-      id: vrt-cache
-      with:
-        path: playwright-report
-        key: vrt-${{ vars.RECENT_ARTIFACTS_SHA256 }}
+    uses: ryu-sato/sphinx-doc-sample/.github/workflows/exec_playwright@support/add-visual-regression-test
+    with:
+      update-screenshots: true

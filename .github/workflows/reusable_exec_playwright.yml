@@ -35,13 +35,22 @@ jobs:
       name: Run Playwright tests
       run: yarn test:vrt --update-snapshots
 
+    # inputs.update-screenshots == true  の場合は screenshots を cache に保存する
+    # inputs.update-screenshots == false の場合は screenshots を cache から読み込む
+    - name: Cache VRT screenshots
+      uses: actions/cache@v4
+      id: vrt-cache
+      with:
+        path: test-results
+        key: vrt-${{ vars.RECENT_ARTIFACTS_SHA256 }}
+
     - if: ${{ !inputs.update-screenshots }}
       name: Run Playwright tests
       run: yarn test:vrt
     - if: ${{ !inputs.update-screenshots }}
-      name: Cache VRT snapshots
+      name: Cache Playwright Report
       uses: actions/cache@v4
-      id: vrt-cache
+      id: playwright-report-cache
       with:
         path: playwright-report
-        key: vrt-${{ vars.RECENT_ARTIFACTS_SHA256 }}
+        key: playwright-report-${{ vars.RECENT_ARTIFACTS_SHA256 }}
