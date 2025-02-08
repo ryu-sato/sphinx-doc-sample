@@ -44,7 +44,7 @@ jobs:
       id: vrt-cache
       with:
         path: test-results
-        key: vrt-${{ vars.RECENT_ARTIFACTS_SHA256 }}
+        key: vrt-${{ github.sha }}
 
     - if: ${{ !inputs.update-screenshots }}
       name: Run Playwright tests
@@ -55,4 +55,4 @@ jobs:
       id: playwright-report-cache
       with:
         path: playwright-report
-        key: playwright-report-${{ vars.RECENT_ARTIFACTS_SHA256 }}
+        key: playwright-report-${{ github.sha }}
