@@ -1,7 +1,7 @@
 name: Update Screenshots
 on:
   push:
-    branches: [ main, master, support/add-visual-regression-test ]
+    branches: [ main, master ]
   workflow_dispatch:
     inputs:
       update-screenshots:
@@ -9,7 +9,7 @@ on:
         default: false
 jobs:
   update-vrt-screenshots:
-    uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
+    uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@master
     with:
       expected_screenshots_cache_key_base: master
       update_screenshots: true

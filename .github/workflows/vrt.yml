@@ -1,39 +1,39 @@
 name: Visual Regression Test
 on:
   push:
-    branches: [ main, master, support/add-visual-regression-test ]
+    branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
 jobs:
-  load_master_screenshots:
+  load_expected_screenshots:
     runs-on: ubuntu-latest
     env:
       TEST_RESULT_DIR: tests/__screenshots__
     outputs:
-      master_screenshots_cache_hit: ${{ steps.load_master_screenshots_from_cache.outputs.cache-hit }}
+      expected_screenshots_cache_hit: ${{ steps.load_expected_screenshots_from_cache.outputs.cache-hit }}
     steps:
     - name: Load master screenshots from cache
-      id: load_master_screenshots_from_cache
+      id: load_expected_screenshots_from_cache
       uses: actions/cache@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-master
-  update_master_screenshots:
-    needs: load_master_screenshots
-    if: needs.load_master_screenshots.outputs.master_screenshots_cache_hit == 'false'
-    uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
+  update_expected_screenshots:
+    needs: load_expected_screenshots
+    if: needs.load_expected_screenshots.outputs.expected_screenshots_cache_hit == 'false'
+    uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@master
     with:
       expected_screenshots_cache_key_base: master
       update_screenshots: true
 
   vrt:
     needs:
-    - load_master_screenshots
-    - update_master_screenshots
+    - load_expected_screenshots
+    - update_expected_screenshots
     if: |
       always() &&
       !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
-    uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
+    uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@master
     with:
       expected_screenshots_cache_key_base: master
