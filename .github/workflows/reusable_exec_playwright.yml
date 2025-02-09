@@ -41,28 +41,27 @@ jobs:
       run: yarn pretest:install-playwright
 
     - if: ${{ inputs.update_screenshots }}
-      name: Load master screenshots from cache
-      uses: actions/cache@v4
+      name: Load master screenshots from cache if udpate_screenshots is true
+      uses: actions/cache/restore@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
-        save-always: true
     - if: ${{ inputs.update_screenshots }}
-      name: Run playwright tests
+      name: Run playwright tests if udpate_screenshots is true
       run: yarn test:vrt --update-snapshots
     - if: ${{ inputs.update_screenshots }}
-      name: Cache playwright report
+      name: Cache playwright screenshots if udpate_screenshots is true
       uses: actions/cache/save@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
 
     - if: ${{ !inputs.update_screenshots }}
-      name: Load master screenshots from cache
+      name: Load master screenshots from cache if udpate_screenshots is false
       uses: actions/cache@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
     - if: ${{ !inputs.update_screenshots }}
-      name: Run playwright tests
+      name: Run playwright tests if udpate_screenshots is false
       run: yarn test:vrt
