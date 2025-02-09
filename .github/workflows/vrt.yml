@@ -22,6 +22,9 @@ jobs:
     needs: load_master_screenshots
     if: needs.load_master_screenshots.outputs.needs_master_screenshots_cache
     uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
+    with:
+      expected_screenshots_cache_key_base: master
+
   vrt:
     needs:
     - load_master_screenshots
