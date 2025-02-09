@@ -52,10 +52,16 @@ jobs:
 
     - if: ${{ !inputs.update_screenshots }}
       name: Load master screenshots from cache if udpate_screenshots is false
-      uses: actions/cache@v4
+      uses: actions/cache/restore@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
     - if: ${{ !inputs.update_screenshots }}
       name: Run playwright tests if udpate_screenshots is false
       run: yarn test:vrt
+    - if: ${{ !inputs.update_screenshots }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.TEST_REPORT_DIR }}
+        path: ${{ env.TEST_REPORT_DIR }}
+        retention-days: 30
