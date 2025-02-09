@@ -1,0 +1,61 @@
+name: Execute Playwright
+on:
+  workflow_call:
+    inputs:
+      # 期待するスクリーンショットが保存されるキャッシュ名のキーベース
+      #   例: expected_screenshots_cache_key_base が "master" の場合は "test-results-master" になる
+      expected_screenshots_cache_key_base:
+        type: string
+        required: true
+      update_screenshots:
+        type: boolean
+        default: false
+
+jobs:
+  exec-playwright:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: "3.10"
+      POETRY_VERSION: "2.0.1"
+      TEST_RESULT_DIR: tests/__screenshots__
+      TEST_REPORT_DIR: playwright-report
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install poetry
+      run: pipx install poetry==${{ env.POETRY_VERSION }}
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: "poetry"
+    - name: Install tools
+      run: sudo apt-get install -y gettext
+    - run: poetry install
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - run: yarn install
+    - name: Install dependencies
+      run: yarn pretest:install-playwright
+
+    - if: ${{ inputs.update_screenshots }}
+      name: Run playwright tests if udpate_screenshots is true
+      run: yarn test:vrt --update-snapshots
+    - if: ${{ inputs.update_screenshots }}
+      name: Cache playwright screenshots if udpate_screenshots is true
+      uses: actions/cache/save@v4
+      with:
+        path: ${{ env.TEST_RESULT_DIR }}
+        key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
+
+    - if: ${{ !inputs.update_screenshots }}
+      name: Load master screenshots from cache if udpate_screenshots is false
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.TEST_RESULT_DIR }}
+        key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
+    - if: ${{ !inputs.update_screenshots }}
+      name: Run playwright tests if udpate_screenshots is false
+      run: yarn test:vrt

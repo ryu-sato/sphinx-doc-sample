@@ -1,0 +1,15 @@
+name: Update Screenshots
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      update-screenshots:
+        type: boolean
+        default: false
+jobs:
+  update-vrt-screenshots:
+    uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@master
+    with:
+      expected_screenshots_cache_key_base: master
+      update_screenshots: true

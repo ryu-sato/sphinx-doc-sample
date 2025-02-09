@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/devcontainers/base:jammy
 
-ENV NODE_VERSION 22.13.1
+ARG NODE_VERSION=22.13.1
+ARG PLAYWRIGHT_VERSION=1.50.1
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -69,7 +70,7 @@ RUN set -ex \
   && rm -rf /tmp/*
 
 # Install libraries of playwright
-RUN npx playwright install --with-deps
+RUN npx playwright@$PLAYWRIGHT_VERSION install --with-deps
 
 
 ARG DEBIAN_FRONTEND=noninteractive
