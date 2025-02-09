@@ -13,3 +13,9 @@ jobs:
     with:
       expected_screenshots_cache_key_base: master
       update_screenshots: true
+  deploy_github:
+    runs-on: ubuntu-latest
+    steps:
+    - if: ${{ !inputs.update_screenshots && !cancelled() }}
+      name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
