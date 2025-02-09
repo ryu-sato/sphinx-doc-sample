@@ -70,5 +70,13 @@ jobs:
         path: ${{ env.TEST_REPORT_DIR }}/
         retention-days: 30
     - if: ${{ !inputs.update_screenshots && !cancelled() }}
+      name: Setup Pages
+      uses: actions/configure-pages@v5
+    - if: ${{ !inputs.update_screenshots && !cancelled() }}
+      name: Upload Artifacts to GitHub Pages
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ${{ env.TEST_REPORT_DIR }}
+    - if: ${{ !inputs.update_screenshots && !cancelled() }}
       name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v4
