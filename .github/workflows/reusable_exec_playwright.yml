@@ -79,6 +79,4 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: ${{ env.TEST_REPORT_DIR }}
-    - if: ${{ !inputs.update_screenshots && !cancelled() }}
-      name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v4
+
