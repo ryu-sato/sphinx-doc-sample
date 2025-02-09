@@ -42,7 +42,7 @@ jobs:
 
     - if: ${{ inputs.update_screenshots }}
       name: Load master screenshots from cache
-      uses: actions/cache/restore@v4
+      uses: actions/cache@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
@@ -59,7 +59,7 @@ jobs:
 
     - if: ${{ !inputs.update_screenshots }}
       name: Load master screenshots from cache
-      uses: actions/cache/restore@v4
+      uses: actions/cache@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
