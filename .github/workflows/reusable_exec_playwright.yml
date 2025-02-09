@@ -65,3 +65,6 @@ jobs:
         name: ${{ env.TEST_REPORT_DIR }}
         path: ${{ env.TEST_REPORT_DIR }}
         retention-days: 30
+    - if: ${{ !inputs.update_screenshots && !cancelled() }}
+      name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
