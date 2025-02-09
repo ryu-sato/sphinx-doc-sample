@@ -59,7 +59,7 @@ jobs:
     - if: ${{ !inputs.update_screenshots }}
       name: Run playwright tests if udpate_screenshots is false
       run: yarn test:vrt
-    - if: ${{ !inputs.update_screenshots }}
+    - if: ${{ !inputs.update_screenshots && !cancelled() }}
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.TEST_REPORT_DIR }}
