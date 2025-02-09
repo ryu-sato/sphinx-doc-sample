@@ -41,12 +41,6 @@ jobs:
       run: yarn pretest:install-playwright
 
     - if: ${{ inputs.update_screenshots }}
-      name: Load master screenshots from cache if udpate_screenshots is true
-      uses: actions/cache/restore@v4
-      with:
-        path: ${{ env.TEST_RESULT_DIR }}
-        key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
-    - if: ${{ inputs.update_screenshots }}
       name: Run playwright tests if udpate_screenshots is true
       run: yarn test:vrt --update-snapshots
     - if: ${{ inputs.update_screenshots }}
