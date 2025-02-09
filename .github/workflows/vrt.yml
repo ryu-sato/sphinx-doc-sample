@@ -30,6 +30,10 @@ jobs:
     needs:
     - load_master_screenshots
     - update_master_screenshots
+    if: |
+      always() &&
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled')
     uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
     with:
       expected_screenshots_cache_key_base: master
