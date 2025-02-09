@@ -14,12 +14,7 @@ import type { GitHubActionOptions } from '@estruyf/github-actions-reporter';
  */
 export default defineConfig({
   testDir: './tests',
-  outputDir: './test-results',
-  expect: {
-    toHaveScreenshot: {
-      pathTemplate: 'test-results/__screenshots__{/projectName}/{testFilePath}/{arg}{ext}',
-    },
-  },
+  snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
