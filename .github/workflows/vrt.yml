@@ -10,7 +10,7 @@ jobs:
     env:
       TEST_RESULT_DIR: test-results
     outputs:
-      needs_master_screenshots_cache: ${{ steps.load_master_screenshots_from_cache.outputs.cache-hit == 'false' }}
+      master_screenshots_cache_hit: ${{ steps.load_master_screenshots_from_cache.outputs.cache-hit }}
     steps:
     - name: Load master screenshots from cache
       id: load_master_screenshots_from_cache
@@ -20,7 +20,7 @@ jobs:
         key: ${{ env.TEST_RESULT_DIR }}-master
   update_master_screenshots:
     needs: load_master_screenshots
-    if: needs.load_master_screenshots.outputs.needs_master_screenshots_cache
+    if: needs.load_master_screenshots.outputs.master_screenshots_cache_hit == 'false'
     uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
     with:
       expected_screenshots_cache_key_base: master
