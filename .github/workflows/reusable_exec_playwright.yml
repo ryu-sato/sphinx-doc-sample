@@ -59,9 +59,3 @@ jobs:
     - if: ${{ !inputs.update_screenshots }}
       name: Run playwright tests
       run: yarn test:vrt
-    - if: ${{ !inputs.update_screenshots }}
-      name: Cache playwright report
-      uses: actions/cache/save@v4
-      with:
-        path: ${{ env.TEST_REPORT_DIR }}
-        key: ${{ env.TEST_REPORT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
