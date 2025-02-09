@@ -24,6 +24,7 @@ jobs:
     uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
     with:
       expected_screenshots_cache_key_base: master
+      update_screenshots: true
 
   vrt:
     needs:
