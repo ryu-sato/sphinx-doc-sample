@@ -10,7 +10,7 @@ Welcome to sphinx-doc-sample's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   tree1/hello.rst
 
 Indices and tables
 ==================
