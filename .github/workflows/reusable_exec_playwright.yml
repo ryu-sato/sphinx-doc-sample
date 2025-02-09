@@ -2,7 +2,9 @@ name: Execute Playwright
 on:
   workflow_call:
     inputs:
-      git_ref:
+      # 期待するスクリーンショットが保存されるキャッシュ名のキーベース
+      #   例: expected_screenshots_cache_key_base が "master" の場合は "test-results-master" になる
+      expected_screenshots_cache_key_base:
         type: string
         required: true
       update_screenshots:
@@ -20,8 +22,6 @@ jobs:
       TEST_REPORT_DIR: playwright-report
     steps:
     - uses: actions/checkout@v4
-      with:
-        ref: ${{ inputs.git_ref }}
     - name: Install poetry
       run: pipx install poetry==${{ env.POETRY_VERSION }}
     - name: Set up Python ${{ env.PYTHON_VERSION }}
@@ -41,14 +41,20 @@ jobs:
       run: yarn pretest:install-playwright
 
     - name: Load master screenshots from cache
-      uses: actions/cache@v4
+      uses: actions/cache/restore@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
-        key: playwright-result-${{ github.sha }}
+        key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
 
     - if: ${{ inputs.update_screenshots }}
       name: Run playwright tests
       run: yarn test:vrt --update-snapshots
+    - if: ${{ inputs.update_screenshots }}
+      name: Cache playwright report
+      uses: actions/cache/save@v4
+      with:
+        path: ${{ env.TEST_RESULT_DIR }}
+        key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
 
     - if: ${{ !inputs.update_screenshots }}
       name: Run playwright tests
@@ -57,5 +63,5 @@ jobs:
       name: Cache playwright report
       uses: actions/cache/save@v4
       with:
-        path: playwright-report
-        key: playwright-report-${{ github.sha }}
+        path: ${{ env.TEST_REPORT_DIR }}
+        key: ${{ env.TEST_REPORT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}

@@ -16,7 +16,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
-        key: playwright-result-${{ github.sha }}
+        key: ${{ env.TEST_RESULT_DIR }}-${{ github.sha }}
   update_master_screenshots:
     needs: load_master_screenshots
     if: needs.load_master_screenshots.outputs.needs_master_screenshots_cache
@@ -27,4 +27,4 @@ jobs:
     - update_master_screenshots
     uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
     with:
-      git_ref: ${{ github.sha }}
+      expected_screenshots_cache_key_base: master
