@@ -40,12 +40,13 @@ jobs:
     - name: Install dependencies
       run: yarn pretest:install-playwright
 
-    - name: Load master screenshots from cache
+    - if: ${{ inputs.update_screenshots }}
+      name: Load master screenshots from cache
       uses: actions/cache/restore@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
-
+        save-always: true
     - if: ${{ inputs.update_screenshots }}
       name: Run playwright tests
       run: yarn test:vrt --update-snapshots
@@ -56,6 +57,12 @@ jobs:
         path: ${{ env.TEST_RESULT_DIR }}
         key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
 
+    - if: ${{ !inputs.update_screenshots }}
+      name: Load master screenshots from cache
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ env.TEST_RESULT_DIR }}
+        key: ${{ env.TEST_RESULT_DIR }}-${{ inputs.expected_screenshots_cache_key_base }}
     - if: ${{ !inputs.update_screenshots }}
       name: Run playwright tests
       run: yarn test:vrt
