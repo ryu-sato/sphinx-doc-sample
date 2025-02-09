@@ -27,6 +27,7 @@ export default defineConfig({
   reporter:
     process.env.CI ? [
       ['list'],
+      ['html', { host: '0.0.0.0' }],
       ['@estruyf/github-actions-reporter', <GitHubActionOptions>{
         useDetails: true,
         showError: true
