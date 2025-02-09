@@ -11,4 +11,5 @@ jobs:
   update-vrt-screenshots:
     uses: ryu-sato/sphinx-doc-sample/.github/workflows/reusable_exec_playwright.yml@support/add-visual-regression-test
     with:
-      update-screenshots: true
+      git_ref: ${{ github.sha }}
+      update_screenshots: true

@@ -2,7 +2,10 @@ name: Execute Playwright
 on:
   workflow_call:
     inputs:
-      update-screenshots:
+      git_ref:
+        type: string
+        required: true
+      update_screenshots:
         type: boolean
         default: false
 
@@ -13,8 +16,12 @@ jobs:
     env:
       PYTHON_VERSION: "3.10"
       POETRY_VERSION: "2.0.1"
+      TEST_RESULT_DIR: test-results
+      TEST_REPORT_DIR: playwright-report
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.git_ref }}
     - name: Install poetry
       run: pipx install poetry==${{ env.POETRY_VERSION }}
     - name: Set up Python ${{ env.PYTHON_VERSION }}
@@ -33,26 +40,22 @@ jobs:
     - name: Install dependencies
       run: yarn pretest:install-playwright
 
-    - if: ${{ inputs.update-screenshots }}
-      name: Run Playwright tests
+    - name: Load master screenshots from cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.TEST_RESULT_DIR }}
+        key: playwright-result-${{ github.sha }}
+
+    - if: ${{ inputs.update_screenshots }}
+      name: Run playwright tests
       run: yarn test:vrt --update-snapshots
 
-    # inputs.update-screenshots == true  の場合は screenshots を cache に保存する
-    # inputs.update-screenshots == false の場合は screenshots を cache から読み込む
-    - name: Cache VRT screenshots
-      uses: actions/cache@v4
-      id: vrt-cache
-      with:
-        path: test-results
-        key: vrt-${{ github.sha }}
-
-    - if: ${{ !inputs.update-screenshots }}
-      name: Run Playwright tests
+    - if: ${{ !inputs.update_screenshots }}
+      name: Run playwright tests
       run: yarn test:vrt
-    - if: ${{ !inputs.update-screenshots }}
-      name: Cache Playwright Report
-      uses: actions/cache@v4
-      id: playwright-report-cache
+    - if: ${{ !inputs.update_screenshots }}
+      name: Cache playwright report
+      uses: actions/cache/save@v4
       with:
         path: playwright-report
         key: playwright-report-${{ github.sha }}
