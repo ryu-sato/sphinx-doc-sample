@@ -3,6 +3,7 @@ FROM mcr.microsoft.com/devcontainers/base:jammy
 ARG NODE_VERSION=22.13.1
 ARG PLAYWRIGHT_VERSION=1.50.1
 
+# https://github.com/nodejs/docker-node/blob/a35f40787c5c4744ad52af7ba0f55034a7fa3481/22/bookworm/Dockerfile
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
