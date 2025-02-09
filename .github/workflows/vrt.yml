@@ -6,6 +6,7 @@ on:
     branches: [ main, master ]
 jobs:
   load_master_screenshots:
+    runs-on: ubuntu-latest
     env:
       TEST_RESULT_DIR: test-results
     outputs:
