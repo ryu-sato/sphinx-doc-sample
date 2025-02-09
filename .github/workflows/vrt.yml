@@ -17,7 +17,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ env.TEST_RESULT_DIR }}
-        key: ${{ env.TEST_RESULT_DIR }}-${{ github.sha }}
+        key: ${{ env.TEST_RESULT_DIR }}-master
   update_master_screenshots:
     needs: load_master_screenshots
     if: needs.load_master_screenshots.outputs.needs_master_screenshots_cache
