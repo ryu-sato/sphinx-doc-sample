@@ -14,7 +14,12 @@ import type { GitHubActionOptions } from '@estruyf/github-actions-reporter';
  */
 export default defineConfig({
   testDir: './tests',
-  outputDir: 'test-results',
+  outputDir: './test-results',
+  expect: {
+    toHaveScreenshot: {
+      pathTemplate: 'test-results/__screenshots__{/projectName}/{testFilePath}/{arg}{ext}',
+    },
+  },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -24,13 +29,17 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [
-    ['html', { host: '0.0.0.0' }],
-    ['@estruyf/github-actions-reporter', <GitHubActionOptions>{
-      useDetails: true,
-      showError: true
-    }]
-  ],
+  reporter:
+    process.env.CI ? [
+      ['list'],
+      ['@estruyf/github-actions-reporter', <GitHubActionOptions>{
+        useDetails: true,
+        showError: true
+      }]
+    ] :
+    [
+      ['html', { host: '0.0.0.0' }],
+    ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
