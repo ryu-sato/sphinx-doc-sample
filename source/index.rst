@@ -11,6 +11,7 @@ Welcome to sphinx-doc-sample's documentation!
    :caption: Contents:
 
    tree1/hello.rst
+   tree1/hello2.rst
 
 Indices and tables
 ==================
